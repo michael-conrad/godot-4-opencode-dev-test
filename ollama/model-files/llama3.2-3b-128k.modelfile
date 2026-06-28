@@ -1,0 +1,22 @@
+# Ollama Modelfile — Llama 3.2 3B (128K native context)
+# num_ctx set to 131072 per Meta docs; the model supports 128K natively, not the 256k variant name suggests
+# Research: Official Meta documentation + community coding agent tuning
+# Sources: https://www.llama.com/docs/model-cards-and-prompt-formats/llama3_2/
+# NOTE: Has min_p and repeat_penalty already. temp=0.6 is fine for a small model needing more creativity. Minor tweak to repeat_penalty from 1.1→1.15 for agent work where repetition is a known failure mode.
+FROM llama3.2:3b
+
+# --- Sampling: Meta coding settings (tuned for agent use) ---
+# temperature=0.6 — Meta official; kept at this level since small models need more creativity to produce useful code
+# top_p=0.9 — Meta official default
+# top_k=16383 — Meta official (very wide sampling appropriate for small model vocabulary)
+# min_p=0.05 — Meta recommended for filtering noise in small models
+# repeat_penalty=1.15 — bumped from 1.1 per AkitaOnRails findings: agent work benefits from stronger repetition prevention; small models are more prone to token-level loops
+PARAMETER temperature 0.6
+PARAMETER top_p 0.9
+PARAMETER top_k 16383
+PARAMETER min_p 0.05
+PARAMETER repeat_penalty 1.15
+
+# --- Context & Generation ---
+PARAMETER num_ctx 131072
+PARAMETER num_predict 8192

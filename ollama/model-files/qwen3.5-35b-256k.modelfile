@@ -1,0 +1,22 @@
+# Ollama Modelfile — Qwen 3.5 35B (no suffix)
+# Variant: "default" = using model's native max context window, no override
+# Research: Official Qwen docs + community anti-halting tuning
+# Sources: https://huggingface.co/Qwen/Qwen3.5-35B-A3B
+#          https://github.com/QwenLM/Qwen3.6/issues/88
+# NOTE: presence_penalty >1.0 without repeat_penalty causes verbatim repetition loops (token-avoidance spirals). Removed per community findings.
+FROM qwen3.5:35b
+
+# --- Sampling: Coding agent settings ---
+# temperature=0.7 — moderate for reasoning balance; AkitaOnRails found 0.1–0.2 better for pure code, but this model is multimodal so we keep higher for reasoning tasks
+# top_p=0.95 — Qwen recommended default
+# top_k=20 — Qwen recommended default
+# presence_penalty removed — values >1.0 without repeat_penalty cause verbatim loops (token-avoidance spirals). See GitHub #88 discussion and community findings.
+# repeat_penalty=1.10 — per AkitaOnRails: ~1.1 prevents unnecessary repetitions especially of code blocks; 1.0 is neutral/disabled
+PARAMETER temperature 0.7
+PARAMETER top_p 0.95
+PARAMETER top_k 20
+PARAMETER repeat_penalty 1.10
+
+# --- Context & Generation ---
+PARAMETER num_ctx 262144
+PARAMETER num_predict 65536

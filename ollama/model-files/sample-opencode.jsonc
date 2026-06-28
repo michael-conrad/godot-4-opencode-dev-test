@@ -1,0 +1,209 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "ollama": {
+      "name": "Ollama localhost — model cards",
+      "npm": "@ai-sdk/openai-compatible",
+      "models": {
+
+        "gemma4:31b-default": {
+          "name": "Gemma 4 31B (default context)",
+          "model": "gemma4:31b",
+          "capabilities": { "vision": true, "tools": true, "audio": false },
+          "limit": { "context": 262144, "output": 65536 },
+          // NOTE: modelfile tuned for coding agent — temp lowered from 1.0→0.4, repeat_penalty added (was disabled)
+          "options": { "temperature": 0.4, "top_p": 0.95, "top_k": 64, "repeat_penalty": 1.10 }
+        },
+
+        "gemma4:31b-256k": {
+          "name": "Gemma 4 31B (256k context)",
+          "model": "gemma4:31b-256k",
+          "capabilities": { "vision": true, "tools": true, "audio": false },
+          "limit": { "context": 262144, "output": 65536 },
+          // NOTE: modelfile tuned for coding agent — temp lowered from 1.0→0.4, repeat_penalty added (was disabled)
+          "options": { "temperature": 0.4, "top_p": 0.95, "top_k": 64, "repeat_penalty": 1.10 }
+        },
+
+        "devstral-small-2:24b-default": {
+          "name": "Devstral Small 2 24B (default context)",
+          "model": "devstral-small-2:24b",
+          "capabilities": { "vision": true, "tools": true, "audio": false },
+          "limit": { "context": 393216, "output": 8192 },
+          // NOTE: modelfile added repeat_penalty=1.10 (was missing); temp=0.15 is correct for Mistral code models
+          "options": { "temperature": 0.15, "top_p": 1.0, "top_k": 40, "repeat_penalty": 1.10 }
+        },
+
+        "devstral-small-2:24b-384k": {
+          "name": "Devstral Small 2 24B (384k context)",
+          "model": "devstral-small-2:24b-384k",
+          "capabilities": { "vision": true, "tools": true, "audio": false },
+          "limit": { "context": 393216, "output": 8192 },
+          // NOTE: modelfile added repeat_penalty=1.10 (was missing); temp=0.15 is correct for Mistral code models
+          "options": { "temperature": 0.15, "top_p": 1.0, "top_k": 40, "repeat_penalty": 1.10 }
+        },
+
+        "qwen3.6:35b-default": {
+          "name": "Qwen 3.6 35B (default context) — coding agent tuned",
+          "model": "qwen3.6:35b",
+          "capabilities": { "vision": true, "tools": true, "audio": false },
+          "interleaved": { "field": "reasoning_content" },
+          "limit": { "context": 262144, "output": 65536 },
+          // NOTE: modelfile tuned — removed presence_penalty=1.5 (caused verbatim loops), added repeat_penalty=1.10; temp lowered from 1.0→0.7 for reasoning/code balance
+          "options": {
+            "temperature": 0.7,
+            "top_p": 0.95,
+            "top_k": 20,
+            "repeat_penalty": 1.10
+          }
+        },
+
+        "qwen3.6:35b-256k": {
+          "name": "Qwen 3.6 35B (256k context) — coding agent tuned",
+          "model": "qwen3.6:35b-256k",
+          "capabilities": { "vision": true, "tools": true, "audio": false },
+          "interleaved": { "field": "reasoning_content" },
+          "limit": { "context": 262144, "output": 65536 },
+          // NOTE: modelfile tuned — removed presence_penalty=1.5 (caused verbatim loops), added repeat_penalty=1.10; temp lowered from 1.0→0.7 for reasoning/code balance
+          "options": {
+            "temperature": 0.7,
+            "top_p": 0.95,
+            "top_k": 20,
+            "repeat_penalty": 1.10
+          }
+        },
+
+        "qwen3.5:35b": {
+          "name": "Qwen 3.5 35B — coding agent tuned",
+          "model": "qwen3.5:35b",
+          "capabilities": { "vision": true, "tools": true, "audio": false },
+          "interleaved": { "field": "reasoning_content" },
+          "limit": { "context": 262144, "output": 65536 },
+          // NOTE: modelfile tuned — removed presence_penalty=1.5 (caused verbatim loops), added repeat_penalty=1.10; temp lowered from 1.0→0.7 for reasoning/code balance
+          "options": {
+            "temperature": 0.7,
+            "top_p": 0.95,
+            "top_k": 20,
+            "repeat_penalty": 1.10
+          }
+        },
+
+        "qwen3-coder:30b": {
+          "name": "Qwen3 Coder 30B — coding agent tuned",
+          "model": "qwen3-coder:30b",
+          "capabilities": { "tools": true, "vision": false, "audio": false },
+          "interleaved": { "field": "reasoning_content" },
+          "limit": { "context": 262144, "output": 65536 },
+          // NOTE: modelfile tuned — removed presence_penalty=0.0 (was safe but misleading; >1.0 causes loops), added repeat_penalty=1.10; temp lowered from 0.6→0.4 per AkitaOnRails findings (0.6 caused variable renaming in code)
+          "options": {
+            "temperature": 0.4,
+            "top_p": 0.95,
+            "top_k": 20,
+            "repeat_penalty": 1.10
+          }
+        },
+
+        "qwen3-embedding:latest": {
+          "name": "Qwen 3 Embedding",
+          "model": "qwen3-embedding:latest",
+          "capabilities": { "tools": true, "vision": false, "audio": false },
+          "limit": { "context": 40960, "output": 8192 }
+        },
+
+        "nemotron3:33b": {
+          "name": "NVIDIA Nemotron 3 33B (128k context)",
+          "model": "nemotron3:33b",
+          "capabilities": { "vision": true, "audio": false, "tools": true },
+          "limit": { "context": 131072, "output": 8192 },
+          // FROM fixed: nemotron-h-omni:latest → nemotron3:33b (old tag no longer exists locally); HF config.json confirms vision capability (no audio)
+          "options": { "temperature": 0.6, "top_p": 0.95, "top_k": 40, "repeat_penalty": 1.10 }
+        },
+
+        "nemotron3:33b-128k": {
+          "name": "NVIDIA Nemotron 3 33B (256k native context)",
+          "model": "nemotron3:33b-128k",
+          "capabilities": { "vision": true, "audio": false, "tools": true },
+          "limit": { "context": 262144, "output": 8192 },
+          // FROM fixed: nemotron-h-omni:256k → nemotron3:33b-128k (old tag no longer exists locally); num_ctx=262144 per HF config.json
+          "options": { "temperature": 0.6, "top_p": 0.95, "top_k": 40, "repeat_penalty": 1.10 }
+        },
+
+        "nemotron-cascade-2:30b": {
+          "name": "NVIDIA Nemotron Cascade 2 30B (256k native context)",
+          "model": "nemotron-cascade-2:30b",
+          "capabilities": { "vision": false, "audio": false, "tools": true },
+          "limit": { "context": 262144, "output": 8192 },
+          // FROM fixed: nemotron-h-moe:latest → nemotron-cascade-2:30b (old tag no longer exists locally); HF config.json shows no vision/audio capabilities
+          "options": { "temperature": 0.6, "top_p": 0.95, "top_k": 40, "repeat_penalty": 1.10 }
+        },
+
+        "gpt-oss:latest": {
+          "name": "OpenAI GPT-OSS 20B",
+          "model": "gpt-oss:20b",
+          "capabilities": { "tools": true, "vision": false, "audio": false },
+          "limit": { "context": 131072, "output": 4096 },
+          // NOTE: config already correct — presence_penalty=0.3 paired with repeat_penalty=1.15 is the safe combination; low temp (0.1) reduces hallucination in code completion
+          "options": { "temperature": 0.1, "top_p": 0.9, "top_k": 40, "repeat_penalty": 1.15, "presence_penalty": 0.3 }
+        },
+
+        "gpt-oss:20b-128k": {
+          "name": "OpenAI GPT-OSS 20B (128k context)",
+          "model": "gpt-oss:20b-128k",
+          "capabilities": { "tools": true, "vision": false, "audio": false },
+          "limit": { "context": 131072, "output": 4096 },
+          // NOTE: config already correct — presence_penalty=0.3 paired with repeat_penalty=1.15 is the safe combination; low temp (0.1) reduces hallucination in code completion
+          "options": { "temperature": 0.1, "top_p": 0.9, "top_k": 40, "repeat_penalty": 1.15, "presence_penalty": 0.3 }
+        },
+
+        "mistral3:latest": {
+          "name": "Mistral Small 3.2 24B",
+          "model": "mistral-small3.2:24b",
+          "capabilities": { "vision": true, "tools": true, "audio": false },
+          "limit": { "context": 32768, "output": 8192 },
+          // NOTE: modelfile added repeat_penalty=1.10 (was missing); temp=0.15 is correct for Mistral code models
+          "options": { "temperature": 0.15, "top_p": 1.0, "top_k": 40, "repeat_penalty": 1.10 }
+        },
+
+        "devstral:latest": {
+          "name": "Mistral Devstral 24B",
+          "model": "devstral:24b",
+          "capabilities": { "tools": true, "vision": false, "audio": false },
+          "limit": { "context": 131072, "output": 8192 },
+          // NOTE: modelfile added repeat_penalty=1.10 (was missing); temp=0.15 is correct for Mistral code models
+          "options": { "temperature": 0.15, "top_p": 1.0, "top_k": 40, "repeat_penalty": 1.10 }
+        },
+
+        "granite4:latest": {
+          "name": "IBM Granite 4.1 30B",
+          "model": "granite4.1:30b",
+          "capabilities": { "tools": true, "vision": false, "audio": false },
+          "limit": { "context": 131072, "output": 8192 },
+          // NOTE: modelfile tuned — temp lowered from 1.0→0.4 (IBM's "Muon handles diversity" rationale is training-time only; per Markaicode: 1.0 causes hallucinations in code); added repeat_penalty=1.10
+          "options": { "temperature": 0.4, "top_p": 0.95, "top_k": 64, "repeat_penalty": 1.10 }
+        },
+
+        "laguna:latest": {
+          "name": "Poolside Laguna XS.2",
+          "model": "laguna-xs.2:q4_K_M",
+          "capabilities": { "tools": true, "vision": false, "audio": false },
+          "limit": { "context": 131072, "output": 8192 },
+          // NOTE: modelfile settings already correct — Poolside's temp=0.3 + repeat_penalty=1.15 are excellent for coding agents; note that presence_penalty should stay at 0.0 or unset (>1.0 without repeat_penalty causes verbatim loops)
+          "options": { "temperature": 0.3, "top_p": 0.95, "top_k": 64, "repeat_penalty": 1.15 }
+        },
+
+        "llama:latest": {
+          "name": "Llama 3.2 3B",
+          "model": "llama3.2:3b",
+          "capabilities": { "tools": true, "vision": false, "audio": false },
+          "limit": { "context": 131072, "output": 8192 },
+          // NOTE: modelfile bumped repeat_penalty from 1.1→1.15 for agent work; small models are more prone to token-level loops so stronger repetition prevention needed
+          "options": { "temperature": 0.6, "top_p": 0.9, "top_k": 16383, "min_p": 0.05, "repeat_penalty": 1.15 }
+        }
+      },
+      "options": {
+        "baseURL": "http://localhost:11434/v1",
+        "timeout": 1800000,
+        "chunkTimeout": 120000
+      }
+    }
+  }
+}

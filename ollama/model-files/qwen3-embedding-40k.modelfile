@@ -1,0 +1,6 @@
+# Ollama Modelfile — Qwen 3 Embedding (no generation params for embedding models)
+# Research: ollama show qwen3-embedding:latest (local model defaults)
+# Note: Embedding models don't use generation parameters. num_ctx set to 40960 per config.json max_position_embeddings = 40960 (native 40K context window).
+FROM qwen3-embedding:latest
+
+PARAMETER num_ctx 40960

@@ -1,0 +1,21 @@
+# Ollama Modelfile — Poolside Laguna XS.2 (256k context override)
+# Variant: "-256k" = explicit num_ctx override
+# Research: Poolside official documentation + community coding agent tuning
+# Sources: https://www.poolside.ai/docs/laguna-xs-2
+#          https://ollama.com/library/laguna
+# NOTE: Poolside's recommended settings (temp=0.3, repeat_penalty=1.15) are already excellent for coding agents. Minor note on presence_penalty: should stay at 0.0 or unset — community findings show >1.0 without repeat_penalty causes verbatim loops.
+FROM laguna-xs.2:q4_K_M
+
+# --- Sampling (Poolside recommended, verified for agent use) ---
+# temperature=0.3 — Poolside recommended for coding; low temp ensures deterministic code output (Markaicode: 0.1–0.3 for factual/technical content)
+# top_p=0.95 — Poolside recommended default
+# top_k=64 — Poolside recommended; wide sampling appropriate for Laguna's vocabulary size
+# repeat_penalty=1.15 — Poolside recommended; AkitaOnRails confirms ~1.1+ prevents unnecessary repetitions especially of code blocks; this model already had it right
+PARAMETER temperature 0.3
+PARAMETER top_p 0.95
+PARAMETER top_k 64
+PARAMETER repeat_penalty 1.15
+
+# --- Context & Generation ---
+PARAMETER num_ctx 262144
+PARAMETER num_predict 8192

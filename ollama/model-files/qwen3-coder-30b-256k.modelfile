@@ -1,0 +1,21 @@
+# Ollama Modelfile — Qwen3 Coder 30B (no suffix)
+# Variant: "default" = using model's native max context window, no override
+# Research: Official Qwen docs for precise coding tasks + community findings
+# Sources: https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B
+# NOTE: presence_penalty >1.0 without repeat_penalty causes verbatim repetition loops (token-avoidance spirals). Removed per community findings.
+FROM qwen3-coder:30b
+
+# --- Sampling: Coding agent settings ---
+# temperature=0.4 — per AkitaOnRails: 0.6 caused variable renaming and strange characters in code; per Markaicode: 0.1–0.2 for pure precision but 0.4 balances reasoning+code quality for agentic tasks
+# top_p=0.95 — Qwen recommended default (Markaicode suggests 0.7 for precision, kept at 0.95 for agentic flexibility)
+# top_k=20 — Qwen recommended default
+# presence_penalty removed — values >1.0 without repeat_penalty cause verbatim loops (token-avoidance spirals). See GitHub #88 discussion and community findings.
+# repeat_penalty=1.10 — per AkitaOnRails: ~1.1 prevents unnecessary repetitions especially of code blocks; 1.0 is neutral/disabled, too conservative for agent work
+PARAMETER temperature 0.4
+PARAMETER top_p 0.95
+PARAMETER top_k 20
+PARAMETER repeat_penalty 1.10
+
+# --- Context & Generation ---
+PARAMETER num_ctx 262144
+PARAMETER num_predict 65536

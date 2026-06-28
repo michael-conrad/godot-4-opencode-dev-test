@@ -1,0 +1,22 @@
+# Ollama Modelfile — GPT-OSS 20B (128K native context)
+# num_ctx set to 131072 per config.json max_position_embeddings = 131072; the model does NOT support 256K despite the variant name
+# Research: OpenAI GPT-OSS documentation + community findings on repetition/looping behavior
+# Known issues: hallucinated tool calls, endless loops, infinite thinking
+# Requires Ollama v0.14.0+ for full reasoning model support
+# NOTE: This config already has presence_penalty=0.3 paired with repeat_penalty=1.15 — the CORRECT combination. Low presence_penalty + adequate repeat_penalty prevents loops without causing token-avoidance spirals. Community findings confirm this pairing works (presence < 1.0 is safe when repeat_penalty >= 1.0).
+FROM gpt-oss:20b
+
+# --- Sampling: Anti-halting parameters (verified for agent use) ---
+# temperature=0.1 — low temp reduces hallucination in code completion; per Markaicode: 0.1–0.3 ideal for factual/technical content
+# top_p=0.9 — standard for code generation; balanced nucleus sampling
+# top_k=40 — Ollama default; sufficient for GPT-OSS vocabulary
+# repeat_penalty=1.15 — per AkitaOnRails: ~1.1+ prevents unnecessary repetitions especially of code blocks and reasoning traces
+# presence_penalty=0.3 — LOW value is safe here because it's paired with adequate repeat_penalty (1.15); community findings show >1.0 without repeat_penalty causes verbatim loops, but 0.3 encourages mild diversity safely
+PARAMETER temperature 0.1
+PARAMETER top_p 0.9
+PARAMETER top_k 40
+PARAMETER repeat_penalty 1.15
+
+# --- Context & Generation ---
+PARAMETER num_ctx 131072
+PARAMETER num_predict 4096

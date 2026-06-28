@@ -1,0 +1,22 @@
+# Ollama Modelfile — Nemotron 3 33B (Omni, 256k context override)
+# Variant: "-256k" = explicit num_ctx override
+# Research: Official NVIDIA documentation + community coding agent tuning
+# Sources: https://build.nvidia.com/nvidia/llama-3_3-nemotron-super-49b-v1
+# HF: nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16 → max_position_embeddings=262144
+# NOTE: Ollama ships with NO parameters for Nemotron (bug #16679). repeat_penalty was missing — added per AkitaOnRails findings (~1.1 prevents verbatim repetitions in agent work).
+# FROM fixed: nemotron-h-omni:256k → nemotron3:33b-128k (old tag no longer exists locally)
+FROM nemotron3:33b
+
+# --- Sampling: NVIDIA recommended settings (tuned for coding) ---
+# temperature=0.6 — NVIDIA recommended default; balanced for reasoning+code tasks
+# top_p=0.95 — NVIDIA recommended default
+# top_k=40 — Ollama default; sufficient for Nemotron's vocabulary
+# repeat_penalty=1.10 — NEW: per AkitaOnRails: ~1.1 prevents unnecessary repetitions especially of code blocks; was missing (implicit 1.0 = disabled)
+PARAMETER temperature 0.6
+PARAMETER top_p 0.95
+PARAMETER top_k 40
+PARAMETER repeat_penalty 1.10
+
+# --- Context & Generation ---
+PARAMETER num_ctx 262144
+PARAMETER num_predict 8192

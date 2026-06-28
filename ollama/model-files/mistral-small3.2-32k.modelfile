@@ -1,0 +1,20 @@
+# Ollama Modelfile — Mistral Small 3.2 (32K native context)
+# num_ctx set to 32768 per config.json max_position_embeddings = 32768; the model does NOT support 256K despite the variant name
+# Research: Official Mistral AI documentation + community coding agent tuning
+# Sources: https://docs.mistral.ai/models/
+# NOTE: temperature=0.15 is appropriate for Mistral code models (deterministic output). repeat_penalty was missing — added per AkitaOnRails findings (~1.1 prevents verbatim repetitions).
+FROM mistral-small3.2:24b
+
+# --- Sampling: Mistral coding settings ---
+# temperature=0.15 — official Mistral coding temp; low for deterministic, precise code output (Markaicode: 0.1–0.3 for factual/technical content)
+# top_p=1.0 — official Mistral setting; per community findings: fine at this level with low temperature
+# top_k=40 — Ollama default; sufficient for Mistral's vocabulary
+# repeat_penalty=1.10 — NEW: per AkitaOnRails: ~1.1 prevents unnecessary repetitions especially of code blocks; was missing (implicit 1.0 = disabled)
+PARAMETER temperature 0.15
+PARAMETER top_p 1.0
+PARAMETER top_k 40
+PARAMETER repeat_penalty 1.10
+
+# --- Context & Generation ---
+PARAMETER num_ctx 32768
+PARAMETER num_predict 8192

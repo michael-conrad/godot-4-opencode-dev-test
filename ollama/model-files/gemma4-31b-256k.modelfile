@@ -1,0 +1,20 @@
+# Ollama Modelfile — Gemma 4 31B (256k context override)
+# Variant: "-256k" = explicit num_ctx override beyond model's native 131k
+# Research: Official Google Gemma documentation + community coding agent tuning
+# Sources: https://ai.google.dev/gemma/docs/gemma4
+# NOTE: temperature=1.0 is Google's general chat default — too high for coding (causes hallucinations). Community findings recommend ~0.3–0.5 for code tasks.
+FROM gemma4:31b
+
+# --- Sampling: Coding agent settings ---
+# temperature=0.4 — per Markaicode: 1.0 is too creative for coding; 0.3–0.5 balances precision with reasoning flexibility for agentic work (vs 0.1–0.2 for pure code)
+# top_p=0.95 — Google recommended default
+# top_k=64 — Google recommended for balanced generation
+# repeat_penalty=1.10 — per AkitaOnRails: ~1.1 prevents unnecessary repetitions; 1.0 is neutral/disabled and too conservative for agent work where repetition is a known failure mode
+PARAMETER temperature 0.4
+PARAMETER top_p 0.95
+PARAMETER top_k 64
+PARAMETER repeat_penalty 1.10
+
+# --- Context & Generation ---
+PARAMETER num_ctx 262144
+PARAMETER num_predict 65536
