@@ -1,0 +1,43 @@
+name: "GPT-OSS:20B"
+model: "ollama/gpt-oss:20b-128k"
+role: "Lightweight General Purpose"
+context_window: 131072
+parameters:
+  temperature: 0.5
+  top_p: 0.9
+  repeat_penalty: 1.0
+
+strengths:
+  - "Lightweight (20B parameters)"
+  - "Fast inference"
+  - "Good general-purpose capability"
+  - "128K context window"
+
+capabilities:
+  can_generate_code: true
+  can_reason: true
+  can_follow_instructions: true
+
+weaknesses:
+  - "Smaller model = less sophisticated reasoning"
+  - "Shorter context than larger variants"
+  - "Not specialized"
+
+best_for:
+  - "Quick questions"
+  - "Simple code generation"
+  - "General-purpose tasks"
+  - "Fast turnaround"
+
+worst_for:
+  - "Complex multi-step reasoning"
+  - "Specialized tasks"
+  - "Large codebase analysis"
+
+dispatch_criteria:
+  - "Task is simple and fast-turnaround"
+  - "Context size < 128K"
+
+fallback_chain:
+  - "nemotron3:33b"
+  - "qwen3.6:35b"

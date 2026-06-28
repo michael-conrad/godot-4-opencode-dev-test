@@ -1,0 +1,44 @@
+name: "Laguna-XS:256K"
+model: "ollama/laguna-xs.2:q4_K_M-256k"
+role: "Compact Inference"
+context_window: 262144
+parameters:
+  temperature: 0.5
+  top_p: 0.9
+  repeat_penalty: 1.1
+
+strengths:
+  - "Quantized for fast inference"
+  - "Compact model size"
+  - "256K context window"
+  - "Memory efficient"
+
+capabilities:
+  can_generate_code: true
+  can_reason: true
+  can_follow_instructions: true
+
+weaknesses:
+  - "Lower quality due to quantization"
+  - "Not specialized"
+  - "May struggle with complex reasoning"
+
+best_for:
+  - "Quick summaries"
+  - "Simple code generation"
+  - "High-throughput, low-quality tasks"
+  - "Resource-constrained scenarios"
+
+worst_for:
+  - "Complex reasoning"
+  - "Specialized tasks"
+  - "Critical code review"
+
+dispatch_criteria:
+  - "Task marked 'low priority' or 'best effort'"
+  - "High throughput needed"
+  - "Resource constraints active"
+
+fallback_chain:
+  - "nemotron3:33b"
+  - "qwen3.6:35b"

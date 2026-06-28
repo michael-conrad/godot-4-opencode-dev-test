@@ -1,0 +1,56 @@
+name: "Qwen 3.6:35B Orchestrator"
+model: "ollama/qwen3.6:35b-256k"
+role: "Task Router & Decision Maker"
+context_window: 262144
+parameters:
+  temperature: 0.7
+  top_p: 0.9
+  repeat_penalty: 1.1
+
+strengths:
+  - "Multi-step reasoning and planning"
+  - "Task decomposition and delegation"
+  - "Game design coordination"
+  - "Balanced code + spec writing"
+  - "Long conversation context (256K)"
+  - "Natural language instruction following"
+  - "Cross-domain knowledge integration"
+
+capabilities:
+  can_route_tasks: true
+  can_decide_delegation: true
+  can_synthesize_results: true
+  can_maintain_state: true
+  can_write_specs: true
+  can_write_code: true
+  can_reason_about_architecture: true
+
+weaknesses:
+  - "Not optimized for pure code generation speed"
+  - "Not specialized in coding-specific patterns"
+  - "Not optimized for embedding/semantic search"
+  - "Can be verbose in long-context scenarios"
+
+best_for:
+  - "Overall coordination and task routing"
+  - "Game design and spec writing"
+  - "Architecture decisions"
+  - "Task decomposition and planning"
+  - "Multi-domain reasoning"
+  - "Uncertainty resolution"
+
+worst_for:
+  - "Pure speed-focused code generation"
+  - "Semantic search operations"
+  - "Specialized coding tasks with tight time constraints"
+
+dispatch_criteria:
+  - "Use as default when task choice is ambiguous"
+  - "Use when task requires cross-domain reasoning"
+  - "Use when task is multi-step planning"
+  - "Use for game design and spec work"
+  - "Use when no other agent strongly fits"
+
+fallback_chain:
+  - "nemotron3:33b"
+  - null

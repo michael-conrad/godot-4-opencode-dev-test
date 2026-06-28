@@ -1,0 +1,52 @@
+name: "Nemotron 3:33B"
+model: "ollama/nemotron3:33b-256k"
+role: "Balanced Reasoning & Code"
+context_window: 262144
+parameters:
+  temperature: 0.6
+  top_p: 0.9
+  repeat_penalty: 1.1
+
+strengths:
+  - "Well-balanced code + reasoning"
+  - "Good instruction following"
+  - "Reliable performance across domains"
+  - "Fine-tuned for AI safety/alignment"
+  - "Strong verification capabilities"
+  - "Good fallback option"
+
+capabilities:
+  can_reason: true
+  can_generate_code: true
+  can_follow_instructions: true
+  can_maintain_state: true
+  can_verify: true
+  can_review: true
+
+weaknesses:
+  - "Not specialized in any single domain"
+  - "Slightly slower than smaller models"
+  - "Not optimized for speed"
+
+best_for:
+  - "Fallback when orchestrator is uncertain"
+  - "Balanced tasks (50/50 spec + code)"
+  - "Instruction-heavy workflows"
+  - "Verification and QA tasks"
+  - "Complex reasoning with safety considerations"
+
+worst_for:
+  - "Pure speed-focused work"
+  - "Specialized coding tasks"
+  - "Long-context scenarios"
+
+dispatch_criteria:
+  - "Fallback option when task domain unclear"
+  - "Task is balanced (code + reasoning)"
+  - "Orchestrator says 'need reliable output'"
+  - "Task involves verification or QA"
+  - "Task requires instruction following"
+
+fallback_chain:
+  - "qwen3.6:35b"
+  - null

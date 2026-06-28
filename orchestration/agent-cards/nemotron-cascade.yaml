@@ -1,0 +1,42 @@
+name: "Nemotron Cascade-2:30B"
+model: "ollama/nemotron-cascade-2:30b-256k"
+role: "Specialized Cascade Model"
+context_window: 262144
+parameters:
+  temperature: 0.6
+  top_p: 0.9
+  repeat_penalty: 1.1
+
+strengths:
+  - "Cascade architecture for efficiency"
+  - "256K context window"
+  - "Strong reasoning"
+  - "Good multi-step planning"
+
+capabilities:
+  can_reason: true
+  can_generate_code: true
+  can_follow_instructions: true
+  can_decompose_tasks: true
+
+weaknesses:
+  - "Specialized architecture may have quirks"
+  - "Less commonly used"
+
+best_for:
+  - "Multi-step reasoning"
+  - "Task decomposition"
+  - "Planning and coordination"
+
+worst_for:
+  - "Simple quick tasks"
+  - "Speed-critical work"
+
+dispatch_criteria:
+  - "Task requires multi-step planning"
+  - "Task decomposition needed"
+  - "Orchestrator needs secondary reasoning"
+
+fallback_chain:
+  - "nemotron3:33b"
+  - "qwen3.6:35b"
