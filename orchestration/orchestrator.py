@@ -1,8 +1,20 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#     "requests>=2.31.0",
+#     "pyyaml>=6.0",
+# ]
+# ///
 """
 Multi-Agent Orchestrator
 
 Routes tasks to specialized agents based on capability profiles and dispatch rules.
+
+Usage:
+    uv run orchestration/orchestrator.py --task "your task"
+    uv run orchestration/orchestrator.py --list-agents
+    uv run orchestration/orchestrator.py --interactive
 """
 
 import argparse
@@ -11,7 +23,7 @@ import yaml
 import sys
 from pathlib import Path
 from typing import Optional, Dict, List, Any
-from ollama_client import OllamaClient, OllamaConfig
+from orchestration.ollama_client import OllamaClient, OllamaConfig
 
 logging.basicConfig(
     level=logging.INFO,

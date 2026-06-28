@@ -2,6 +2,22 @@
 
 Multi-agent dispatch engine for Godot game development tasks.
 
+## Quick Start
+
+```bash
+# List all agents
+uv run orchestration/orchestrator.py --list-agents
+
+# Dispatch a task
+uv run orchestration/orchestrator.py --task "your task here"
+
+# Interactive mode
+uv run orchestration/orchestrator.py --interactive
+
+# Verbose logging
+uv run orchestration/orchestrator.py --task "..." --verbose
+```
+
 ## Components
 
 ### Agent Cards (`agent-cards/`)
@@ -29,13 +45,14 @@ Main dispatch engine:
 4. Sends to selected agent(s) via Ollama
 5. Validates + returns results
 
-### Ollama Client (`ollama-client.py`)
+### Ollama Client (`ollama_client.py`)
 
 HTTP client wrapper for Ollama REST API:
 - Chat completion calls
 - Embedding generation (utility)
 - Model listing
 - Error handling + retries
+- Ollama is a system service on `http://localhost:11434`
 
 ## Workflow
 
@@ -57,22 +74,6 @@ Agent processes
 Return result
 ```
 
-## Running
-
-```bash
-# Single task
-python3 orchestration/orchestrator.py --task "write a GDScript player movement script"
-
-# Interactive mode
-python3 orchestration/orchestrator.py --interactive
-
-# Specify agent explicitly
-python3 orchestration/orchestrator.py --task "..." --agent qwen3-coder
-
-# Verbose logging
-python3 orchestration/orchestrator.py --task "..." --verbose
-```
-
 ## Agent Selection Examples
 
 | Task | Primary | Fallback |
@@ -82,3 +83,35 @@ python3 orchestration/orchestrator.py --task "..." --verbose
 | "Verify code quality" | nemotron3 | qwen3.6-orchestrator |
 | "Quick prototype UI screen" | devstral-small | qwen3-coder |
 | "Uncertain task" | nemotron3 | qwen3.6-orchestrator |
+
+## Running with uv
+
+All scripts use PEP 723 headers and are run via `uv`:
+
+```bash
+# Direct invocation (uv finds the PEP 723 script header)
+uv run orchestration/orchestrator.py [args]
+
+# Or explicitly with Python
+uv run python orchestration/orchestrator.py [args]
+```
+
+## Environment
+
+Python 3.10+
+
+Dependencies defined in `pyproject.toml`:
+- `requests>=2.31.0` - HTTP client
+- `pyyaml>=6.0` - YAML parsing
+
+Development dependencies:
+- `pytest>=7.4.0` - Testing
+- `black>=23.7.0` - Code formatting
+- `ruff>=0.0.287` - Linting
+- `mypy>=1.4.1` - Type checking
+
+## See Also
+
+- [Agent System Architecture](../docs/agent-system-architecture.md) - Detailed design
+- [Dispatch Strategy](../docs/dispatch-strategy.md) - Routing logic with examples
+- [Adding New Agents](../docs/adding-new-agents.md) - Onboarding guide

@@ -1,0 +1,38 @@
+version = 3
+requires-python = ">=3.10"
+
+[[package]]
+name = "certifi"
+version = "2024.6.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/71/da/e94e26401b62acd6d91df2b52954778fda755959c36a578d77f7b19285775/certifi-2024.6.2.tar.gz", hash = "sha256:3cd43f1c6fa7dedc5899d69d3ad0398fd49967a073519a20b3e9b5aed496892f" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ba/06/ead8b6271ee2873fdd23aeab1b1e4b04eb11cb0c8e74e3d5b5f428216533/certifi-2024.6.2-py3-none-any.whl", hash = "sha256:923e826d8ea316bf3095cc0d06eca5efb5de6991894a287332578eb456dacfa6" }
+]
+
+[[package]]
+name = "charset-normalizer"
+version = "3.3.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8fcb0641e4d80b1a96f23ad5f5eba30426fde6c4/charset-normalizer-3.3.2.tar.gz", hash = "sha256:f0d1ef5e8a235e0298bbf0d5f0379db18aa23df463a7610b5056577564947d11" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d1/a5/8b7e9c5226011a0e16a67e321f5c5666c90acf68ef5cb504f76666033d0d/charset_normalizer-3.3.2-py3-none-any.whl", hash = "sha256:1eecee3f66e5ff163d1bda83121cff307c9ee612f0ffd7760890f1e837ef113d" }
+]
+
+[[package]]
+name = "idna"
+version = "3.7"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/21/1f/2ba8a7bcc4b fall back to a simpler version for now
+version = 3
+requires-python = ">=3.10"
+
+[[package]]
+name = "requests"
+version = "2.31.0"
+source = { registry = "https://pypi.org/simple" }
+
+[[package]]
+name = "pyyaml"
+version = "6.0"
+source = { registry = "https://pypi.org/simple" }
