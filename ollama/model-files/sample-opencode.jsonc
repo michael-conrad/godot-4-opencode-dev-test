@@ -102,11 +102,19 @@
           }
         },
 
-        "qwen3-embedding:latest": {
-          "name": "Qwen 3 Embedding",
-          "model": "qwen3-embedding:latest",
-          "capabilities": { "tools": true, "vision": false, "audio": false },
-          "limit": { "context": 40960, "output": 8192 }
+        "ornith:35b-256k": {
+          "name": "Ornith 1.0 35B (256k max context)",
+          "model": "ornith:35b-256k",
+          "capabilities": { "vision": true, "tools": true, "audio": false },
+          "interleaved": { "field": "reasoning_content" },
+          "limit": { "context": 262144, "output": 65536 },
+          // NOTE: reasoning model ( outputs <think> blocks ); temp=0.6 from HF serving recipes; repeat_penalty=1.10 per community Qwen-family findings
+          "options": {
+            "temperature": 0.6,
+            "top_p": 0.95,
+            "top_k": 20,
+            "repeat_penalty": 1.10
+          }
         },
 
         "nemotron3:33b": {

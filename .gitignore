@@ -41,3 +41,19 @@ env/
 logs/
 *.session
 /.godotengine/
+
+# Godot editor caches (auto-generated)
+my-game/.godot/shader_cache/
+my-game/.godot/editor/*.uid
+my-game/.godot/editor/*.res
+my-game/.godot/editor/*.cfg
+my-game/.godot/global_script_class_cache.cfg
+my-game/.godot/uid_cache.bin
+
+# Godot import files (regenerated from source assets)
+*.import
+*.tscn.import
+*.tres.import
+*.png.import
+*.wav.import
+*.ogg.import
