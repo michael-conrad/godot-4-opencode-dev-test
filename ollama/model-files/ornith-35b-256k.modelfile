@@ -1,0 +1,25 @@
+# Ollama Modelfile — Ornith 1.0 35B (256k max context)
+# Variant: "-256k" = explicit num_ctx override for model's native max context
+# Research: Live ollama show + HF serving recipes + chat template analysis
+# Sources: https://ollama.com/library/ornith
+#          https://huggingface.co/deepreinforce-ai/Ornith-1.0-35B/blob/main/chat_template.jinja
+# NOTE: Ornith is a reasoning model — outputs <think> blocks before final answers
+
+FROM ornith:35b
+
+# --- Sampling: Reasoning + Coding agent settings ---
+# temperature=0.6 — official default from HF serving recipes for agentic coding; balanced between exploration and stability
+# top_p=0.95 — official recommendation from HF benchmarks (Harbor/Terminus-2 evals)
+# top_k=20 — matches model's native default (confirmed by ollama show)
+# repeat_penalty=1.10 — per community findings on Qwen-family models; prevents verbatim repetition in code generation
+
+PARAMETER temperature 0.6
+PARAMETER top_p 0.95
+PARAMETER top_k 20
+PARAMETER repeat_penalty 1.10
+
+# --- Context & Generation (max context) ---
+# Native max context: 256K = 262144 tokens (confirmed by Ollama library page + HF model card)
+PARAMETER num_ctx 262144
+# Output budget: generous for agentic coding with tool calls and code blocks
+PARAMETER num_predict 65536

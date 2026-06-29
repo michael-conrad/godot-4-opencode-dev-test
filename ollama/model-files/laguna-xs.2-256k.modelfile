@@ -1,5 +1,5 @@
-# Ollama Modelfile — Poolside Laguna XS.2 (256k context override)
-# Variant: "-256k" = explicit num_ctx override
+# Ollama Modelfile — Poolside Laguna XS.2 (128K native context)
+# Native context: 131072 (128K) per HF config.json max_position_embeddings = 131072
 # Research: Poolside official documentation + community coding agent tuning
 # Sources: https://www.poolside.ai/docs/laguna-xs-2
 #          https://ollama.com/library/laguna

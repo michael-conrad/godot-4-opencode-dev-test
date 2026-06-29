@@ -1,5 +1,5 @@
-# Ollama Modelfile — Gemma 4 31B (256k context override)
-# Variant: "-256k" = explicit num_ctx override beyond model's native 131k
+# Ollama Modelfile — Gemma 4 31B (native max context)
+# Native context: 262144 (256K) per HF config.json max_position_embeddings = 262144
 # Research: Official Google Gemma documentation + community coding agent tuning
 # Sources: https://ai.google.dev/gemma/docs/gemma4
 # NOTE: temperature=1.0 is Google's general chat default — too high for coding (causes hallucinations). Community findings recommend ~0.3–0.5 for code tasks.
@@ -15,6 +15,6 @@ PARAMETER top_p 0.95
 PARAMETER top_k 64
 PARAMETER repeat_penalty 1.10
 
-# --- Context & Generation ---
+# --- Context & Generation (native max) ---
 PARAMETER num_ctx 262144
 PARAMETER num_predict 65536

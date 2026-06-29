@@ -1,0 +1,96 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  "model": "ollama/ornith:35b-256k",
+
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+
+        "ornith:35b-256k": {
+          "name": "Ornith 1.0 35B",
+          "limit": { "context": 262144, "output": 65536 },
+          "reasoning": true,
+          "interleaved": { "field": "reasoning_content" }
+        },
+
+        "qwen3.6:35b-256k": {
+          "name": "Qwen 3.6 35B (multimodal)",
+          "limit": { "context": 262144, "output": 65536 },
+          "reasoning": true,
+          "interleaved": { "field": "reasoning_content" }
+        },
+
+        "qwen3.5:35b-256k": {
+          "name": "Qwen 3.5 35B (multimodal)",
+          "limit": { "context": 262144, "output": 65536 },
+          "reasoning": true,
+          "interleaved": { "field": "reasoning_content" }
+        },
+
+        "qwen3-coder:30b-256k": {
+          "name": "Qwen3 Coder 30B",
+          "limit": { "context": 262144, "output": 65536 }
+        },
+
+        "gemma4:31b-256k": {
+          "name": "Gemma 4 31B (vision-capable)",
+          "limit": { "context": 262144, "output": 65536 }
+        },
+
+        "gpt-oss:20b-128k": {
+          "name": "GPT-OSS 20B",
+          "limit": { "context": 131072, "output": 4096 },
+          "reasoning": true
+        },
+
+        "nemotron-cascade-2:30b-256k": {
+          "name": "Nemotron Cascade 2 30B",
+          "limit": { "context": 262144, "output": 8192 },
+          "reasoning": true,
+          "interleaved": { "field": "reasoning_content" }
+        },
+
+        "nemotron3:33b-256k": {
+          "name": "Nemotron 3 33B (multimodal)",
+          "limit": { "context": 131072, "output": 8192 },
+          "reasoning": true,
+          "interleaved": { "field": "reasoning_content" }
+        },
+
+        "granite4.1:30b-128k": {
+          "name": "Granite 4.1 30B",
+          "limit": { "context": 131072, "output": 8192 }
+        },
+
+        "devstral-small-2:24b-384k": {
+          "name": "Devstral Small 2 24B (long context)",
+          "limit": { "context": 393216, "output": 8192 }
+        },
+
+        "mistral-small3.2:24b-128k": {
+          "name": "Mistral Small 3.2 24B",
+          "limit": { "context": 131072, "output": 8192 }
+        },
+
+        "laguna-xs.2:q4_K_M-128k": {
+          "name": "Laguna XS.2 q4_K_M",
+          "limit": { "context": 131072, "output": 8192 }
+        }
+
+      }
+    }
+  },
+
+  "mcp": {},
+
+  "instructions": [
+    "./AGENTS.md",
+    "{file:./docs/cards/catalogue.md}"
+  ]
+}
