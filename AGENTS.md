@@ -42,9 +42,9 @@ The orchestrator (primary model) is the single entry point. It delegates to spec
 
 | Model | Native Context | Verified Capability | Agent Card |
 |-------|---------------|--------------------|------------|
-| `<ORCHESTRATOR_MODEL>` | `<context_window>` | General-purpose reasoning (orchestrator) | `build.md` |
-| `<MODEL_2>` | `<context_window>` | <capability> | `<agent-card-2>.md` |
-| `<MODEL_3>` | `<context_window>` | <capability> | `<agent-card-3>.md` |
+| `ornith:35b-256k` | 262144 (256K) | General-purpose reasoning (orchestrator) | `build.md` |
+| `qwen3-coder:30b-256k` | 262144 (256K) | Specialized code generation | `qwen3-coder.md` |
+| `devstral-small-2:24b-384k` | 393216 (384K) | Fast prototyping + long context | `devstral-small-2.md` |
 
 The orchestrator assesses each incoming task and routes to the best-fit model. If no specialist clearly fits, it handles the task itself. Agent cards describe capabilities — they are not personas or fixed roles.
 

@@ -37,7 +37,6 @@ env/
 *.log
 
 # Session state
-.opencode/
 logs/
 *.session
 /.godotengine/
